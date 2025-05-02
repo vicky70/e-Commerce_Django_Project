@@ -113,7 +113,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-PAYPAL_RECEIVER_EMAIL = 'sb-rbyrj38110746@business.example.com'
+PAYPAL_RECEIVER_EMAIL = 'your-paypl-id'
 PAYPAL_TEST = True
 
 
