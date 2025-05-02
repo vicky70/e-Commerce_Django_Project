@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Sign-Up Page{% endblock title %} 
+
+{% block content %}
+
+<section class="signup-section">
+    <h2 class="signup-heading">Create Your Nova Comics Hub Account</h2>
+    <form method="post" action="">
+        {% csrf_token %}
+
+        {% if usr_reg_form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+                {% for error in usr_reg_form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% for field in usr_reg_form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="cyber-button signup-btn">Sign Up</button>
+    </form>
+
+    <p class="login-link">Already have an account? <a href="{% url 'login_page' %}">Log In</a></p>
+</section>
+
+{% endblock content %}

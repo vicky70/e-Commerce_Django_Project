@@ -1,0 +1,293 @@
+/* Comic List Styles */
+.cyber-comics {
+    background: linear-gradient(to bottom, #000000 0%, #9bca5d 100%);
+    padding: 80px 20px;
+    border-top: 7px solid #ff0000;
+}
+
+.theme-filter {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 60px;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 3px solid #00ffe1;
+    color: #00ffe1;
+    padding: 12px 25px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgb(0, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.6s ease;
+}
+
+.filter-btn:hover::before {
+    left: 100%;
+}
+
+.filter-btn.active {
+    background: rgba(0, 255, 225, 0.1);
+    box-shadow: 0 0 15px rgba(0, 255, 225, 0.3);
+}
+
+.comic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.comic-card {
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #00ffe1;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.comic-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 40px rgba(0, 255, 225, 0.2);
+}
+
+.comic-visual {
+    position: relative;
+    overflow: hidden;
+}
+
+.comic-cover {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.comic-card:hover .comic-cover {
+    transform: scale(1.05);
+}
+
+.comic-glows {
+    position: absolute;
+    inset: 0;
+    background: 
+        radial-gradient(circle at 50% 0%, 
+            rgba(0, 255, 225, 0.2) 0%, 
+            transparent 100%),
+        linear-gradient(
+            45deg,
+            transparent 49%,
+            rgba(0, 255, 225, 0.1) 50%,
+            transparent 51%
+        );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.comic-card:hover .comic-glows {
+    opacity: 1;
+}
+
+.comic-info {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.comic-title {
+    color: #00ffe1;
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+}
+
+.comic-year {
+    color: #7f8fa6;
+    font-size: 0.9rem;
+}
+
+.comic-bars {
+    margin-top: 15px;
+}
+
+.comic-bars div {
+    height: 3px;
+    background: #00ffe1;
+    margin-bottom: 5px;
+    transform-origin: left;
+    animation: bar-grow 0.8s ease-out forwards;
+}
+
+@keyframes bar-grow {
+    from { width: 0% }
+    to { width: var(--width) }
+}
+
+/* Detail Button Styles */
+.comic-details-btn {
+    background: transparent;
+    border: 2px solid #00ffe1;
+    color: #00ffe1;
+    text-decoration: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    align-self: flex-start; 
+    margin-top: 15px;
+}
+
+.comic-details-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0, 255, 225, 0.1),
+        transparent
+    );
+    transition: 0.6s ease;
+}
+
+.comic-details-btn:hover::before {
+    left: 100%;
+}
+
+.comic-details-btn:hover {
+    background: rgba(0, 255, 225, 0.1);
+    box-shadow: 0 0 15px rgba(0, 255, 225, 0.3);
+}
+
+/* Related Comics Styles */
+.related-comics {
+    background: #0a0a0a;
+    padding: 40px 20px;
+    border-top: 3px solid #00ffe1;
+}
+
+.section-header {
+    max-width: 1200px;
+    margin: 0 auto 30px;
+}
+
+.related-heading {
+    color: #00ffe1;
+    font-size: 1.75rem;
+    text-align: center;
+    text-shadow: 0 0 15px rgba(0, 255, 225, 0.3);
+}
+
+.cyber-divider {
+    height: 2px;
+    background: #00ffe1;
+    width: 150px;
+    margin: 10px auto;
+    position: relative;
+}
+
+.cyber-divider::after {
+    content: '';
+    position: absolute;
+    right: -15px;
+    top: -3px;
+    width: 10px;
+    height: 10px;
+    background: #00ffe1;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+.related-grid {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 15px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    scroll-behavior: smooth;
+}
+
+.related-grid::-webkit-scrollbar {
+    height: 5px;
+    background: #1a1a1a;
+}
+
+.related-grid::-webkit-scrollbar-thumb {
+    background: #00ffe1;
+    border-radius: 2px;
+}
+
+.related-card {
+    flex: 0 0 200px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #00ffe1;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.related-card:hover {
+    transform: translateY(-3px) rotateZ(0.5deg); 
+    box-shadow: 0 0 20px rgba(0, 255, 225, 0.2);
+}
+
+.related-visual {
+    position: relative;
+    overflow: hidden;
+    height: 250px; 
+}
+
+.related-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.related-card:hover .related-cover {
+    transform: scale(1.03);
+}
+
+.related-info {
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+}
+
+.related-title {
+    color: #00ffe1;
+    font-size: 1.1rem; 
+    margin-bottom: 5px;
+}
+
+.related-year {
+    color: #7f8fa6;
+    font-size: 0.8rem;
+}

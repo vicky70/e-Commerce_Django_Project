@@ -1,0 +1,58 @@
+.cyber-heading {
+    color: #00ffe1;
+    text-shadow: 0 0 10px rgba(0, 255, 225, 0.6);
+    margin-bottom: 30px;
+}
+
+.order-details-header {
+    font-size: 0.9rem;
+}
+
+.order-details-header .text-muted {
+    color: #7f8fa6 !important;
+}
+
+.order-details-header .text-light {
+    color: #b41717 !important;
+}
+
+.order-item-summary {
+     border-bottom: 2px solid rgba(0, 255, 225, 0.3) !important;
+     padding-bottom: 20px;
+     margin-bottom: 20px !important;
+}
+
+.order-item-summary .h5 {
+    color: #e0e0e0;
+}
+
+.order-item-summary .text-success {
+    color: #28a745 !important;
+    font-weight: bold;
+}
+
+
+.order-total-row {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #00ffe1;
+}
+
+.order-total-row .h4 {
+    color: #b41717 !important;
+    font-weight: bold;
+}
+
+
+.cyber-progress {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    height: 25px !important;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 5px rgba(0, 255, 225, 0.3);
+}
+
+.cyber-progress .progress-bar {
+     font-weight: bold;
+     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
+}

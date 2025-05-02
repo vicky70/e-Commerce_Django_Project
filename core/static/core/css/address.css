@@ -1,0 +1,89 @@
+.address-form-section {
+    margin-top: 50px;
+    padding: 40px;
+    max-width: 600px; 
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00ffe1; 
+    border-radius: 12px;
+    box-shadow: 0 0 30px rgba(0, 255, 225, 0.4), 0 0 10px rgba(0, 255, 225, 0.2) inset;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    text-align: center; 
+    color: #f5f5f5; 
+}
+
+.address-form-section h2 {
+    color: #00ffe1; 
+    text-shadow: 0 0 10px rgba(0, 255, 225, 0.5); 
+    margin-bottom: 30px;
+}
+
+.address-form-section .form-field {
+    margin-bottom: 20px;
+    text-align: left; 
+}
+
+.address-form-section label {
+    display: block;
+    color: #b41717; 
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.address-form-section input[type="text"],
+.address-form-section input[type="email"],
+.address-form-section input[type="number"], 
+.address-form-section select { 
+    width: 100%;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 255, 225, 0.3);
+    color: #e0e0e0; 
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    appearance: none;
+}
+
+
+.address-form-section input[type="text"]:focus,
+.address-form-section input[type="email"]:focus,
+.address-form-section input[type="number"]:focus,
+.address-form-section select:focus {
+    outline: none;
+    border-color: #00ffe1;
+    box-shadow: 0 0 10px rgba(0, 255, 225, 0.4);
+}
+
+.address-form-section .errorlist {
+    color: #dc3545;
+    list-style: none;
+    padding: 5px 0 0 0;
+    margin: 0;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.address-form-section input[type="submit"] {
+    display: inline-block;
+    margin-top: 20px;
+    background: transparent; 
+    color: #00ffe1;
+    border: 2px solid #00ffe1;
+    padding: 12px 25px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-radius: 8px; 
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.address-form-section input[type="submit"]:hover {
+    text-shadow: 0 0 10px #00ffe1;
+    box-shadow: 0 0 15px #00ffe1;
+    background-color: rgba(0, 255, 225, 0.1);
+}

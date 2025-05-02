@@ -1,0 +1,47 @@
+{% extends 'core/base.html' %} 
+{% load static %}
+
+{% block title %}Add Address{% endblock title %}
+
+{% block content %}
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center"> 
+        <div class="col-md-8 col-lg-6">
+            <section class="address-form-section">
+                <h2>Add New Address</h2> 
+
+                <form action="{% url "instant_buy" %}" method="POST" novalidate>
+                    {% csrf_token %}
+
+                    
+                    {% if af.non_field_errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for error in af.non_field_errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {% for m in af %}
+                        <div class="form-field"> 
+                            {{ m.label_tag }}
+                            {{ m }}
+                            {% if m.errors %}
+                                <ul class="errorlist">
+                                    {% for error in m.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    <input type="submit" value="Add Address">
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

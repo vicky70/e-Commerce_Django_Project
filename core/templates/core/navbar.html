@@ -1,0 +1,53 @@
+{% load static %}
+<div class="floating-navbar">
+    <div class="drag-me"></div>
+    {% if request.user.is_authenticated %}
+    <div class="nav-icons">
+        <ul>
+            <li>
+                <a href="{% url "profile" %}" class="nav-item" aria-label="Profile">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-text">Profile</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url "show_cart" %}" class="nav-item" aria-label="Cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="nav-text">Cart</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url "order" %}" class="nav-item" aria-label="Order">
+                    <i class="fas fa-box"></i>
+                    <span class="nav-text">Orders</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url "log_out" %}" class="nav-item" aria-label="Logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    
+    {% else %}
+    <div class="nav-icons">
+        <ul>
+            <li>
+                <a href="{% url "login_page" %}" class="nav-item" aria-label="Profile">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span class="nav-text">Log in</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url "registration" %}" class="nav-item" aria-label="Cart">
+                    <i class="fas fa-user-plus"></i>
+                    <span class="nav-text">Sign Up</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    {% endif %}
+</div>

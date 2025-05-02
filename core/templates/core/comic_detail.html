@@ -1,0 +1,150 @@
+{% extends "core/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="comic-details">
+    <div class="detail-grid">
+        <div class="comic-visual">
+            <img src="{{comic_details.comic_image.url}}" alt="{{comic_details.name}}" class="detail-cover">
+            <div class="comic-glows"></div>
+        </div>
+
+        <div class="comic-meta">
+            <h1 class="detail-title">{{comic_details.name}}</h1>
+            <div class="detail-meta">
+                <span class="detail-year">2024 Multiverse Edition</span>
+                <span class="detail-publisher">Marvel Nexus</span>
+            </div>
+
+            <div class="detail-description">
+                <p>{{comic_details.description}}</p>
+            </div>
+
+            <div class="action-panel">
+                <div class="price-tag">
+                    <span class="price">${{comic_details.original_price}}</span>
+                    <span class="digital-badge">Digital Included</span>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="{% url "instant_buy" comic_details.id %}" class="cyber-button buy-btn">
+                        <i class="fas fa-bolt"></i>
+                        Instant Buy
+                    </a>
+                    <button class="cyber-button rent-btn">
+                        <i class="fas fa-clock"></i>
+                        Rent ($0.9/min)
+                        <small>coming soon</small>
+                    </button>
+                    <a href="{% url "add_to_cart" comic_details.id %}" class="cyber-button cart-btn">
+                        <i class="fas fa-cart-plus"></i>
+                        Add to Collection
+                    </a>
+                </div>
+            </div>
+
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <span class="spec-label">Pages</span>
+                    <span class="spec-value">144</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Format</span>
+                    <span class="spec-value">Premium Hardcover</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Release Date</span>
+                    <span class="spec-value">2024-03-15</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">ISBN</span>
+                    <span class="spec-value">978-1-4012-1337-9</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="creative-team">
+        <h3 class="team-heading">Cyber Architects</h3>
+        <div class="team-grid">
+            <div class="team-member">
+                <span class="role">Writer</span>
+                <span class="name">Akira Nakamoto</span>
+            </div>
+            <div class="team-member">
+                <span class="role">Artist</span>
+                <span class="name">Lena Voss</span>
+            </div>
+            <div class="team-member">
+                <span class="role">Colorist</span>
+                <span class="name">Javier Neon</span>
+            </div>
+            <div class="team-member">
+                <span class="role">Letterer</span>
+                <span class="name">Tycho-9 AI</span>
+            </div>
+        </div>
+    </div>
+
+    <section class="related-comics">
+        </section>
+</section>
+
+<section class="comic-reviews">
+    <h2 class="reviews-heading">User Reviews</h2>
+
+    <div class="review-list">
+        <div class="review-item">
+            <div class="review-header">
+                <span class="reviewer-name">Neo_Reader77</span>
+                <div class="review-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span class="rating-value">4.5/5</span>
+                </div>
+            </div>
+            <p class="review-text">Absolutely loved the artwork and the gritty atmosphere! The story was engaging, though the ending felt a bit rushed. Definitely a must-read for cyberpunk fans.</p>
+        </div>
+    </div>
+
+    <div class="add-review">
+        <h3 class="add-review-heading">Add Your Review</h3>
+        <form method="post" action="">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="rating">Rating:</label>
+                <select name="rating" id="rating" required>
+                    <option value="">Select Rating</option>
+                    <option value="5">5 Stars</option>
+                    <option value="4.5">4.5 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="3.5">3.5 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="2.5">2.5 Stars</option>
+                    <option value="2">2 Stars</option>
+                    <option value="1.5">1.5 Stars</option>
+                    <option value="1">1 Star</option>
+                    <option value="0.5">0.5 Stars</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="review_text">Your Review:</label>
+                <textarea name="review_text" id="review_text" rows="5" required></textarea>
+            </div>
+
+            <button type="submit" class="cyber-button submit-review-btn">Submit Review</button>
+        </form>
+    </div>
+</section>
+
+{% include "core/footer.html" %}
+
+
+{% endblock content %}

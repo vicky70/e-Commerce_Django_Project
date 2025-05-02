@@ -1,0 +1,335 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Profile Dashboard{% endblock title %}
+
+{% block content %}
+
+    <nav class="profile-sidebar">
+        <div class="d-flex flex-column">
+            
+            <h3 class="mb-4"><i class="bi bi-layout-sidebar me-2"></i> Dashboard</h3>
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    
+                    <a class="nav-link" href="{% url "home" %}"><i class="bi bi-house"></i><span class="ms-2">Home</span></a>
+                </li>
+                <li class="nav-item">
+                    
+                    <a class="nav-link {% if is_profile %}active{% endif %}" href="{% url "profile" %}"><i class="bi bi-person"></i><span class="ms-2">Profile</span></a>
+                </li>
+                <li class="nav-item">
+                    
+                    <a class="nav-link {% if is_cart %}active{% endif %}" href="{% url "profile_cart" %}"><i class="bi bi-cart"></i><span class="ms-2">Cart</span></a>
+                </li>
+                <li class="nav-item">
+                    
+                    <a class="nav-link {% if is_order %}active{% endif %}" href="{% url "profile_order" %}"><i class="bi bi-list-check"></i><span class="ms-2">Orders</span></a>
+                </li>
+                 <li class="nav-item">
+                    
+                    <a class="nav-link {% if is_rented_comic %}active{% endif %}" href="{% url "profile_rented_comic" %}"><i class="bi bi-book"></i><span class="ms-2">Rented Comics</span></a> {# Changed icon to book #}
+                </li>
+                <li class="nav-item">
+                    
+                    <a class="nav-link" href="#"><i class="bi bi-key"></i><span class="ms-2">Change Password</span></a>
+                </li>
+                <li class="nav-item">
+                    
+                    <a class="nav-link" href="#"><i class="bi bi-gear"></i><span class="ms-2">Settings</span></a>
+                </li>
+                <li class="nav-item mt-4">
+                    
+                    <a class="nav-link text-danger" href="{% url "log_out" %}"><i class="bi bi-box-arrow-left"></i><span class="ms-2">Logout</span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="profile-main-content">
+        
+        {% if is_profile %}
+            
+            <h2>Profile Settings</h2>
+
+            {% comment %} profile card {% endcomment %}
+            <div class="card cyber-card p-4 profile-card-form">
+                <form>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            
+                            <label class="form-label">Username</label>
+                            
+                            <input type="text" class="form-control"
+                                value="{{request.user}}" readonly>
+                        </div>
+
+                        <div class="col-md-6">
+                           
+                            <label class="form-label">Email address</label>
+                             
+                            <input type="email" class="form-control"
+                                value="{{request.user.email}}" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            
+                            <label class="form-label">First Name</label>
+                             
+                            <input type="text" class="form-control"
+                                value="{{request.user.first_name}}" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            
+                            <label class="form-label">Last Name</label>
+                             
+                            <input type="text" class="form-control"
+                                value="{{request.user.last_name}}" required>
+                        </div>
+
+                        <div class="col-12 mt-4">
+                            <h5 class="text-white mb-3">Change Password</h5>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    
+                                    <label class="form-label">Current Password</label>
+                                     
+                                    <input type="password" class="form-control">
+                                </div>
+                                <div class="col-md-4">
+                                    
+                                    <label class="form-label">New Password</label>
+                                     
+                                    <input type="password" class="form-control">
+                                </div>
+                                <div class="col-md-4">
+                                    
+                                    <label class="form-label">Confirm Password</label>
+                                     
+                                    <input type="password" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mt-4">
+                            
+                            <button type="submit" class="btn cyber-button px-4">
+                                <i class="bi bi-save me-2"></i>Update Profile
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            
+            <div class="card cyber-card p-4 mt-4 profile-list-group">
+                <h4 class="text-white mb-3">Recent Activity</h4>
+                <ul class="list-group">
+                    
+                    <li class="list-group-item">
+                        <i class="bi bi-check-circle text-success me-2"></i>Order #1234 shipped
+                    </li>
+                    
+                    <li class="list-group-item">
+                        <i class="bi bi-clock-history text-warning me-2"></i>Order #1235 processing
+                    </li>
+                    
+                    <li class="list-group-item">
+                        <i class="bi bi-cart-check text-primary me-2"></i>New item added to cart
+                    </li>
+                </ul>
+            </div>
+        </div>
+    {% elif is_cart %}
+        <div class="main-content">
+            <h2>Your Cart</h2>
+            <div class="card cyber-card p-4 mb-4 cart-summary">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="text-white mb-3">Order Summary</h4>
+                        
+                        <div class="list-group profile-list-group">
+                            {% if cart_items %}
+                                {% for item in cart_items %}
+                                    <div class="list-group-item">
+                                        <div class="d-flex justify-content-between">
+                                            <span>
+                                                {% if item.quantity == 1 %}
+                                                    {{item.product.name}}
+                                                {% elif item.quantity >= 2 %}
+                                                    {{item.product.name}} - ({{item.quantity}} * copies)
+                                                {% endif %}
+                                            </span>
+                                            <span>₹{{item.price_and_quantity_total}}</span>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                            <div class="cyber-card p-4">
+                                <h3>Cart is Empty</h3>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-3 mt-md-0">
+                       
+                        <div class="card cyber-card p-3">
+                            <h5 class="text-white">Total: ₹{{total}}</h5>
+                            
+                            {% if cart_items %}
+                            <a href="{% url "cart_checkout" %}" class="btn cyber-button w-100 mt-2" >Checkout</a>
+                            {% else %}
+                            <a href="" class="btn cyber-button w-100 mt-2" style="
+                                opacity: 0.4;
+                                cursor: not-allowed;
+                                background: #091d1c;
+                                color: #2f8d8eb8;
+                                ">Checkout
+                            </a>
+                            {% endif %}
+                            
+                            <a href="{% url "show_comic_list" %}" class="btn cyber-button-outline-light w-100 mt-2">Continue Shopping</a> {# Assumed show_comic_list is the URL for the comic list #}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% elif is_order %}
+        <div class="main-content">
+            <h2>Your Orders</h2>
+            {% if orders %}
+                {% for o in orders %}
+                    <div class="row justify-content-center mb-4">
+                        <div class="col-md-12">
+                            <div class="card cyber-card order-card">
+                                <div class="card-header cyber-card-header">
+                                    <h3 class="text-center mb-0">Purchase Receipt</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row mb-4 order-details-header">
+                                        <div class="col-7">
+                                            <span class="text-muted">Date</span><br>
+                                            <span class="text-white">{{ o.order_at|date:"d F Y"}}</span>
+                                        </div>
+                                        <div class="col-5 text-right">
+                                            <span class="text-light">Order No.</span><br>
+                                            <span class="text-white">{{ o.order_number }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="border-bottom border-secondary pb-3 mb-3 order-item-summary">
+                                        <div class="row mb-2">
+                                            <div class="col-8">
+                                                <span class="h5">{{ o.comic.name }}</span>
+                                            </div>
+                                            <div class="col-4 text-right">
+                                                <span class="text-success">₹{{ o.comic.discounted_price }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <span class="h5">Shipping</span>
+                                            </div>
+                                            <div class="col-4 text-right">
+                                                <span class="text-success">₹2000</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-4 order-total-row">
+                                        <div class="col-8 h5">Total</div>
+                                        <div class="col-4 text-right h4">
+                                            ₹{{ o.comic.discounted_price|add:2000 }}
+                                        </div>
+                                    </div>
+
+                                    <div class="card-header cyber-card-header mb-3">
+                                        <h4 class="mb-0">Tracking Order</h4>
+                                    </div>
+
+                                    
+                                    <div class="progress cyber-progress">
+                                        <div class="progress-bar text-white
+                                            {% if o.status == 'PENDING' %}bg-secondary{% elif o.status == 'PROCESSING' %}bg-primary{% else %}bg-success{% endif %}"
+                                            style="{% if o.status == 'PENDING' %}width: 33%{% elif o.status == 'PROCESSING' %}width: 66%{% else %}width: 100%{% endif %}"
+                                            role="progressbar"
+                                            aria-valuenow="{% if o.status == 'PENDING' %}33{% elif o.status == 'PROCESSING' %}66{% else %}100{% endif %}"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100">
+                                            {{ o.status | title }}
+                                        </div>
+                                    </div>
+                                    <div class="text-center mt-4">
+                                        
+                                        <a href="{% url "order_cancel" o.id 0 %}" class="btn cyber-button-outline-danger px-5">
+                                            <i class="bi bi-x-circle me-2"></i>Cancel Order
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+             {% else %}
+                <div class="cyber-card text-center py-4">
+                    <h3 class="text-muted">No orders found.</h3>
+                    <p class="text-white-50">Your purchased comics will appear here.</p>
+                    <div class="mt-3">
+                         <a href="{% url 'show_comic_list' %}" class="btn cyber-button">Explore Comics</a> {# Themed button #}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% elif is_rented_comic %}
+        <div class="main-content">
+            <h2>Your Rented Comics</h2>
+            {% if rented_comics %}
+                {% for ren_co in rented_comics %}
+                    <div class="container d-flex justify-content-center my-4">
+                        <div class="card cyber-card rented-comic-card" style="width: 100%;">
+                            <div class="card-body position-relative">
+                                <div class="position-absolute top-0 start-0 m-2 small text-light">Subscriptions start at: {{ren_co.rent_start_date}}</div>
+                                <div class="position-absolute top-2 end-0 mt-3 me-2 badge bg-success">Current Plan: {{ren_co.rental_plan}}</div>
+                                {% if ren_co.rental_status == 'expired' %}
+                                    <div class="position-absolute top-0 end-0 m-2 badge bg-danger">Status: {{ren_co.rental_status}}</div>
+                                {% else %}
+                                    <div class="position-absolute top-0 end-0 m-2 badge bg-success">Status: {{ren_co.rental_status}}</div>
+                                {% endif %}
+                                <div class="row g-3 mt-4">
+                                    <div class="col-md-4">
+                                        <img src="{{ren_co.comic.comic_image.url}}" class="img-fluid rounded" alt="{{ren_co.name}}">
+                                    </div>
+
+                                    <div class="col-md-8">
+                                        <h3 class="card-title">{{ren_co.comic}}</h3>
+                                        <p class="card-text text-white-50">{{ren_co.comic.description}}</p>
+
+                                        <div class="d-flex gap-3 mt-3">
+                                            <div class="w-100">
+                                                <button class="btn cyber-button w-100">Read Comic</button>
+                                            </div>
+                                            <div class="w-100">
+                                            
+                                                <a href="{% url "cancel_sub" ren_co.id%}" class="btn cyber-button-outline-danger w-100">Cancel Subscriptions</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                 <div class="cyber-card text-center py-4">
+                    <h3 class="text-muted">No rented comics found.</h3>
+                    <p class="text-white-50">Rent comics to see them here.</p>
+                    <div class="mt-3">
+                         <a href="{% url 'show_comic_list' %}" class="btn cyber-button">Explore Comics</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        {% endif %}
+{% endblock content %}

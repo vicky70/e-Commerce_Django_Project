@@ -1,0 +1,97 @@
+{% extends 'core/base.html' %} 
+{% load static %}
+{% block title %}My Orders{% endblock title %}
+
+{% block content %}
+
+<div class="container mt-5 mb-5">
+    <h2 class="text-center cyber-heading mb-4">My Order History</h2>
+
+    {% if ord %}
+        {% for o in ord %}
+            <div class="row justify-content-center mb-4">
+                <div class="col-md-10 col-lg-8">
+                    <div class="card cyber-card order-card">
+                        <div class="card-header cyber-card-header"> 
+                            <h3 class="text-center mb-0">Purchase Receipt</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-4 order-details-header">
+                                <div class="col-7">
+                                    <span class="text-muted">Date</span><br>
+                                    <span class="text-white">{{ o.order_at|date:"d F Y"}}</span>
+                                </div>
+                                <div class="col-5 text-right">
+                                    <span class="text-light">Order No.</span><br>
+                                    <span class="text-white">{{ o.order_number }}</span>
+                                </div>
+                            </div>
+
+                            <div class="border-bottom border-secondary pb-3 mb-3 order-item-summary">
+                                <div class="row mb-2">
+                                    <div class="col-8">
+                                        <span class="h5">{{ o.comic.name }}</span>
+                                    </div>
+                                    <div class="col-4 text-right">
+                                        <span class="text-success">₹{{ o.comic.discounted_price }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <span class="h5">Shipping</span>
+                                    </div>
+                                    <div class="col-4 text-right">
+                                        <span class="text-success">₹2000</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-4 order-total-row">
+                                <div class="col-8 h5">Total</div>
+                                <div class="col-4 text-right h4">
+                                    ₹{{ o.comic.discounted_price|add:2000 }}
+                                </div>
+                            </div>
+
+                            <div class="card-header cyber-card-header mb-3">
+                                <h4 class="mb-0">Tracking Order</h4>
+                            </div>
+                            <div class="progress cyber-progress">
+                                <div class="progress-bar text-white
+                                    {% if o.status == 'PENDING' %}bg-secondary{% elif o.status == 'PROCESSING' %}bg-primary{% else %}bg-success{% endif %}"
+                                    style="{% if o.status == 'PENDING' %}width: 33%{% elif o.status == 'PROCESSING' %}width: 66%{% else %}width: 100%{% endif %}"
+                                    role="progressbar"
+                                    aria-valuenow="{% if o.status == 'PENDING' %}33{% elif o.status == 'PROCESSING' %}66{% else %}100{% endif %}"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100">
+                                    {{ o.status | title }}
+                                </div>
+                            </div>
+                            <div class="text-center mt-4">
+                                
+                                <a href="{% url "order_cancel" o.id 1 %}" class="btn cyber-button-outline-danger px-5">
+                                    <i class="bi bi-x-circle me-2"></i>Cancel Order
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="cyber-card text-center py-4">
+                    <h3 class="text-muted">No orders found.</h3>
+                    <p class="text-white-50">Start shopping to see your orders here!</p>
+                    <div class="mt-3">
+                         <a href="{% url 'show_comic_list' %}" class="btn cyber-button">Explore Comics</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock content %}

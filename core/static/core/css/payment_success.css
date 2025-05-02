@@ -1,0 +1,25 @@
+.payment-status-section {
+    padding: 40px; 
+}
+
+.payment-success-heading {
+    color: #28a745;
+    text-shadow: 0 0 8px rgba(40, 167, 69, 0.6);
+    margin-bottom: 20px;
+}
+
+.payment-fail-heading {
+    color: #dc3545;
+     text-shadow: 0 0 8px rgba(220, 53, 69, 0.6);
+    margin-bottom: 20px;
+}
+
+.payment-status-message {
+    color: #e0e0e0;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+.payment-status-section .btn {
+    margin: 0 10px;
+}

@@ -1,0 +1,23 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Log in Page{% endblock %}
+
+{% block content %}
+<section class="login-section">
+    <h2 class="login-heading">Login to Your Account</h2>
+    <form method="post" action="{% url "login_page" %}">
+        {% csrf_token %}
+        {% for field in user_credential_fields %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="cyber-button login-btn">Login</button>
+    </form>
+
+    <p class="signup-link">Don't have an account? <a href="{% url "registration" %}">Sign Up</a></p>
+</section>
+{% endblock content %}

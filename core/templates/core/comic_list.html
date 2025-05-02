@@ -1,0 +1,55 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="cyber-comics">
+    <div class="theme-filter">
+        <button class="filter-btn active" data-theme="all">All Comics</button>
+        <button class="filter-btn" data-theme="Marvel">Marvel Comics</button>
+        <button class="filter-btn" data-theme="DC">DC Comics</button>
+        <button class="filter-btn" data-theme="SHUEISHA">Shueisha Manga</button>
+    </div>
+
+    <div class="comic-grid">
+        {% for comic in cate_comics %}
+        <article class="comic-card" data-theme="{{comic.category}}">
+            <div class="comic-visual">
+                <img src="{{comic.comic_image.url}}" alt="{{comic.name}}" class="comic-cover">
+                <div class="comic-glows"></div>
+            </div>
+            <div class="comic-info">
+                <h3 class="comic-title">{{comic.name}}</h3>
+                <p class="comic-year">{{comic.description}}</p>
+                <div class="comic-bars">
+                    <div class="rating-bar" style="--width: 10%"></div>
+                    <div class="popularity-bar" style="--width: 67%"></div>
+                </div>
+                <a href="{% url "show_comic_details" comic.id %}" class="comic-details-btn">Check Details</a>  
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="related-comics">
+    <div class="section-header">
+        <h2 class="related-heading">Related Universes</h2>
+        <div class="cyber-divider"></div>
+    </div>
+    <div class="related-grid">
+        {% for comic in cate_comics %}
+            <article class="related-card" data-theme="{{comic.category}}">
+                <div class="related-visual">
+                    <img src="{{comic.comic_image.url}}" alt="{{comic.name}}" class="related-cover">
+                    <div class="comic-glows"></div>
+                </div>
+                <div class="related-info">
+                    <h3 class="related-title">Web of Shadows</h3>  <p class="related-year">Symbiote Saga Part II</p> 
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+{% include "core/footer.html" %}
+{% endblock content %}

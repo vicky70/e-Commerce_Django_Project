@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{% static "core/css/style.css" %}">
+  <link rel="stylesheet" href="{% static "core/css/comic_detail.css" %}">
+  <link rel="stylesheet" href="{% static "core/css/comic_list.css" %}">
+  <link rel="stylesheet" href="{% static "core/css/login.css" %}">
+  <link rel="stylesheet" href="{% static "core/css/signup.css" %}">
+  <link rel="stylesheet" href="{% static "core/css/checkout.css" %}">
+  <link rel="stylesheet" href="{% static "core/css/address.css" %}">
+  <link rel="stylesheet" href="{% static "core/css/payment.css" %}">
+  <link rel="stylesheet" href="{% static "core/css/payment_success.css" %}">
+  <link rel="stylesheet" href="{% static "core/css/order.css" %}">
+  <link rel="stylesheet" href="{% static "core/css/profile.css" %}">
+  <link rel="stylesheet" href="{% static "core/css/cart.css" %}">
+
+  <title>Nova Comics Hub</title>
+  
+</head>
+<body>
+
+    {% include "core/navbar.html" %}
+
+    <div class="notification-container">
+        {% for message in messages %}
+            <div class="notification-card alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    </div>
+    
+{% block content %}
+    <img src="{% static "core/image/zoro-final-image.png" %}" alt="brand-logo" class="corner-image">
+    <div class="header">
+        <h1>Nova Comics</h1>
+    </div>
+
+    <div class="main-container">
+    <section class="hero-carousel">
+        <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner h-100">
+                <div class="carousel-item active h-100">
+                    <img src="{% static "core/image/marvel-carousel-image.jpg" %}" class="d-block w-100 h-100" style="object-fit: cover;" alt="Venom">
+                    <div class="carousel-caption">
+                        <h5>Marvel's Dark Hero</h5>
+                        <p>Explore the symbiotic relationship that shakes the foundations of New York</p>
+                        <a href="{% url "show_comic_list" %}" class="cap-btn btn btn-success">Check collection</a>
+                    </div>
+                </div>
+                <div class="carousel-item h-100">
+                    <img src="{% static "core/image/carousel_image2_11zon.jpg" %}" class="d-block w-100 h-100" style="object-fit: cover;" alt="...">
+                    <div class="carousel-caption">
+                        <h5>DC Epic Showdowns</h5>
+                        <p>Witness the DC universe-altering battles</p>
+                        <a href="{% url "show_comic_list" %}" class="cap-btn btn btn-success">Check collection</a>
+                    </div>
+                </div>
+                <div class="carousel-item h-100">
+                    <img src="{% static "core/image/shueisha-carousel-image.jpg" %}" class="d-block w-100 h-100" style="object-fit: cover;" alt="...">
+                    <div class="carousel-caption">
+                        <h5>Shueisha Manga Origins</h5>
+                        <p>Discover the birth of legends</p>
+                        <a href="{% url "show_comic_list" %}" class="cap-btn btn btn-success">Check collection</a>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- next category section -->
+        <section class="comic-parallax">
+            <div class="parallax-background"></div>
+            
+            <div class="parallax-content">
+            <div class="comic-panel">
+                <h2>Marvel Comic</h2>
+                <p>Explore curated collections from indie creators</p>
+                <a href="{% url "show_comic_list" %}" class="cyber-button">Check Collection</a>
+            </div>
+
+            <div class="comic-panel">
+                <h2>DC Comics</h2>
+                <p>Explore curated collections from indie creators</p>
+                <a href="{% url "show_comic_list" %}" class="cyber-button">Check Collection</a>
+            </div>
+            
+            <div class="comic-panel">
+                <h2>Weekly Releases</h2>
+                <p>New issues from major publishers</p>
+                <a href="{% url "show_comic_list" %}" class="cyber-button">View Calendar</a>
+            </div>
+            </div>
+        </section>
+
+        <!-- Comic facts sections -->
+        <section class="comic-facts">
+            <div class="matrix-grid">
+                <!-- Timeline Divider -->
+                <div class="timeline-beam"></div>
+
+                <!-- Fact Cards -->
+                <div class="fact-card" data-year="1938">
+                    <div class="fact-content">
+                        <i class="fas fa-rocket"></i>
+                        <h3>First Superhero</h3>
+                        <p>Action Comics #1 introduced Superman - sold for 10¢, now worth millions</p>
+                        <div class="fact-overlay"></div>
+                    </div>
+                </div>
+
+                <div class="fact-card" data-year="1962">
+                    <div class="fact-content">
+                        <i class="fas fa-spider"></i>
+                        <h3>Marvel Revolution</h3>
+                        <p>Spider-Man's creation rejected initially for being "too human"</p>
+                        <div class="fact-overlay"></div>
+                    </div>
+                </div>
+
+                <div class="fact-card" data-year="1986">
+                    <div class="fact-content">
+                        <i class="fas fa-mask"></i>
+                        <h3>Graphic Novel Era</h3>
+                        <p>Watchmen's symmetrical panels changed comic storytelling forever</p>
+                        <div class="fact-overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        {% include "core/footer.html" %}
+    </div>
+
+
+{% endblock content %}
+
+    <script src="{% static "core/js/base.js" %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.min.js" integrity="sha384-VQqxDN0EQCkWoxt/0vsQvZswzTHUVOImccYmSyhJTp7kGtPed0Qcx8rK9h9YEgx+" crossorigin="anonymous"></script>  </body>
+    <script src="{% static "core/js/comic_list.js" %}"></script>
+    <script src="{% static "core/js/message.js" %}"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Payment{% endblock title %}
+
+{% block content %}
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6"> 
+            <section class="payment-section cyber-card"> 
+                <h2 class="text-center cyber-card-header">Complete Your Payment</h2> 
+                <div class="payment-content mt-4">
+                    {{paypal.render}}
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

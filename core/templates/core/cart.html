@@ -1,0 +1,126 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Your Cart{% endblock title %} 
+
+{% block content %}
+
+<div class="container mt-5 mb-5">
+    <h2 class="text-center cyber-heading mb-4">Your Shopping Cart</h2> 
+
+    {% if cart_items %}
+        {% for item in cart_items %}
+            <div class="row justify-content-center mb-4"> 
+                <div class="col-md-10 col-lg-8"> 
+                    
+                    <div class="card cart-item-card">
+                        <div class="row g-0">
+                            <div class="col-md-3">
+                                <img src="{{item.product.comic_image.url}}" class="img-fluid rounded-start" alt="{{item.product.name}}">
+                            </div>
+                            <div class="col-md-9 d-flex flex-column p-3">
+                                <h4>{{item.product.name}}</h4> 
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <div class="quantity-control"> 
+                                        
+                                        <a href="{% url "decrease_quantity" item.id%}" class="btn btn-quantity">-</a>
+                                        
+                                        <div class="quantity-input">
+                                            {{item.quantity}}
+                                        </div>
+                                        
+                                        <a href="{% url "increase_quantity" item.id%}" class="btn btn-quantity">+</a>
+                                    </div>
+                                     
+                                    <a href="{% url "delete_cart" item.id%}" class="btn btn-delete ms-3">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        {# Order summary section #}
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-10 col-lg-8">
+                
+                <div class="card cyber-card order-summary-card">
+                    <div class="card-header cyber-card-header">
+                        <h3 class="text-center mb-0"><strong>Order Summary</strong></h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            
+                            <table class="table table-sm cyber-table">
+                                <thead class="cyber-table-header">
+                                    <tr>
+                                        <th>Comic Name</th>
+                                        <th class="text-center">Price</th>
+                                        <th class="text-center">Quantity</th>
+                                        <th class="text-end">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in cart_items %}
+                                    <tr>
+                                        <td class="align-middle text-light">{{item.product.name}}</td>
+                                        <td class="text-center align-middle text-light">₹{{item.product.discounted_price}}</td>
+                                        <td class="text-center align-middle text-light">{{item.quantity}}</td>
+                                        <td class="text-end align-middle text-light">₹{{item.price_and_quantity_total}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    <tr class="border-top border-secondary">
+                                        <td colspan="2"></td>
+                                        <td class="text-center fw-bold">Subtotal</td>
+                                        <td class="text-end">₹<span class="fw-bold">{{total}}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td class="text-center text-light">Shipping</td>
+                                        <td class="text-end text-light">₹2000</td>
+                                    </tr>
+                                    <tr class="border-top border-secondary">
+                                        <td colspan="2">
+                                            <i class="bi bi-upc-scan fs-4 text-muted"></i>
+                                        </td>
+                                        <td class="text-center fw-bold">Total</td>
+                                        <td class="text-end">₹<span class="fw-bold">{{final_price}}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center pay-button-container">
+          <div class="col-12 col-md-8 col-lg-6">
+            <a href="{% url "cart_checkout" %}" class="btn cyber-button w-100">Proceed to Checkout</a>
+          </div>
+        </div>
+
+    {% else %}
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card cyber-card empty-cart-card">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-shopping-cart fa-3x"></i>
+                        </div>
+                        <h4>Your Cart is Empty</h4>
+                        <p>There are no items in your shopping cart.</p>
+                        <div class="mt-4">
+                            <a href="{% url "show_comic_list" %}" class="btn cyber-button-outline-light">Continue Shopping</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+</div>
+
+
+{% endblock content %}
